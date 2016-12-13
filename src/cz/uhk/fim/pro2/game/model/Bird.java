@@ -4,34 +4,42 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import cz.uhk.fim.pro2.game.gui.GameCanvas;
 import cz.uhk.fim.pro2.game.gui.MainFrame;
 
 public class Bird {
 	
+	public static final int DEFAULT_SCORE = 0;
+	public static final int DEFAULT_LIVES = 3;
+	public static final int JUMP = 500;
+	
 	private static final int GRAVITY = 300;
-	private static final int JUMP = 500;
 	
 	private String name;
 	private float positionX, positionY;
 	private float speed;
 	private int lives;
+	private int score;
+	
+	//TODO
+	//konstruktor, gettery, settery a toString()
 	
 	public Bird(String name, float positionX, float positionY) {
-		super();
 		this.name = name;
 		this.positionX = positionX;
 		this.positionY = positionY;
-		speed = 0;
-		lives = 3;
+		speed = JUMP / 2;
+		lives = DEFAULT_LIVES;
+		score = DEFAULT_SCORE;
 	}
 	
-	public void paint(Graphics g){
+	public void paint(Graphics g) {
 		g.setColor(Color.BLUE);
 		
 		Rectangle rectangle = getRectangle();
 		
 		g.fillRect(
-			(int) rectangle.getX(),
+			(int) rectangle.getX(), 
 			(int) rectangle.getY(),
 			(int) rectangle.getWidth(),
 			(int) rectangle.getHeight()
@@ -40,60 +48,71 @@ public class Bird {
 	
 	public Rectangle getRectangle() {
 		return new Rectangle(
-			(int) (getPositionX()) - 25,
+			(int) getPositionX() - 25, 
 			(int) getPositionY() - 25,
 			50,
 			50
 		);
 	}
 	
-	public void update(float deltaTime){
+	public void update(float deltaTime) {
 		positionY -= speed * deltaTime;
 		positionY += GRAVITY * deltaTime;
 		
-		speed -= speed * deltaTime; 
+		speed -= speed * deltaTime;
 	}
 	
-	public boolean collideWith(Tube tube){
+	public boolean colliedWith(Tube tube) {
 		Rectangle rectangle = getRectangle();
 		
-		return rectangle.intersects(tube.getBottomRectangle()) || rectangle.intersects(tube.getTopRectangle());
+		return 	rectangle.intersects(tube.getBottomRectangle()) ||
+				rectangle.intersects(tube.getTopRectangle());
 	}
 	
-	public boolean collideWith(Heart heart){
+	public boolean colliedWith(Heart heart) {
 		return getRectangle().intersects(heart.getRectangle());
 	}
 	
-	public boolean isOutOf(){
-		Rectangle rectangle = getRectangle();
+	public boolean isOutOf() {		
+		int upLimit = GameCanvas.UP_BOUND;
+		int downLimit = MainFrame.HEIGHT - GameCanvas.DOWN_BOUND;
 		
-		// Porovnani min hodnot
-		if(rectangle.getMinX() < 0 || rectangle.getMinY() < 0){
-			return true;
-		}
-		
-		// Porovnani max hodnot
-		if(rectangle.getMaxX() > MainFrame.WIDTH || rectangle.getMaxY() > MainFrame.HEIGHT){
-			return true;
-		}
-		
-		return false;
+		return getRectangle().getMinY() < upLimit || getRectangle().getMaxY() > downLimit;
 	}
 	
 	public void goUp() {
 		speed = JUMP;
 	}
 	
-	public String getName(){
+	public void catchHeart() {
+		lives++;
+	}
+	
+	public void die() {
+		
+	}
+	
+	public void addLive() {
+		
+	}
+	
+	public void removeLive() {
+		lives--;
+	}
+	
+	public void addPoint() {
+		score++;
+	}
+	
+	public boolean isAlive() {
+		return lives > 0;
+	}
+	
+	public String getName() {
 		return name;
 	}
-	
 	public float getPositionX() {
 		return positionX;
-	}
-	
-	public void setPositionX(float x) {
-		this.positionX = x;
 	}
 	
 	public float getPositionY() {
@@ -119,20 +138,12 @@ public class Bird {
 	public void setLives(int lives) {
 		this.lives = lives;
 	}
-	
-	public void catchHeart() {
-		
-	}
-	
-	public void die() {
-		
+
+	public int getScore() {
+		return score;
 	}
 
-	public void addLive() {
-		
+	public void setPositionX(float positionX) {
+		this.positionX = positionX;
 	}
-	
-	public void removeLive() {
-		
-	}	
 }

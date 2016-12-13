@@ -14,13 +14,14 @@ public class Tube {
 	private Color color;
 	private boolean flew;
 	private static final int GAP = 200;
-	private static final int WIDTH = 50;
+	public static final int WIDTH = 50;
 	
 	public Tube(float positionX, float height, Color color) {
 		super();
 		this.positionX = positionX;
 		this.height = height;
 		this.color = color;
+		flew = false;
 	}
 	
 	public void paint(Graphics g){
@@ -103,7 +104,9 @@ public class Tube {
 	public void update(float deltaTime){
 		positionX -= World.SPEED * deltaTime;
 	}
-	
+	public boolean isFlew() {
+		return flew;
+	}
 	
 	// TODO konstruktor, gettery, settery, toString()
 	

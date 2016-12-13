@@ -1,54 +1,77 @@
 package cz.uhk.fim.pro2.game.model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.xml.internal.fastinfoset.algorithm.HexadecimalEncodingAlgorithm;
+
 
 import cz.uhk.fim.pro2.game.interfaces.WorldListener;
 
 public class World {
 
-	public static final int SPEED = 100;
-	
-	private Bird bird;	
-	private List<Tube> tubes;	
-	private List<Heart> hearts;
-	private WorldListener worldListener;
+public static final int SPEED = 100;
 	
 	private static final int SPACE_BETWEEN_TUBES = 300;
 	private static final int SPACE_BETWEEN_HEARTS = 450;
 	
-	public World(Bird bird, WorldListener worldListner) {
+	private Bird bird;
+	private List<Tube> tubes;
+	private List<Heart> hearts;
+	private WorldListener worldListener;
+
+	public World(Bird  bird, WorldListener worldListener) {
 		this.bird = bird;
 		tubes = new ArrayList<>();
 		hearts = new ArrayList<>();
-		this.worldListener = worldListner;
+		this.worldListener = worldListener;
 	}
 	
-	public void update(float deltaTime){
+	public void update(float deltaTime) {
+	
+			regenerate();
+		
+		
 		bird.update(deltaTime);
 		
-		if(bird.isOutOf()){
+		if(bird.isOutOf()) {
 			worldListener.outOf();
 		}
 		
-		for(Heart heart : hearts){
-			heart.update(deltaTime);
+		for(Tube tube : tubes) {
+			tube.update(deltaTime);
 			
-			if(bird.collideWith(heart)){
-				worldListener.catchHeart(heart);
+			if(bird.colliedWith(tube)) {
+				tube.setFlew(true);
+				worldListener.crashTube(tube);
+			} else {
+				if(!tube.isFlew() && 
+					bird.getPositionX() > tube.getMaxX()) {
+						bird.addPoint();
+						tube.setFlew(true);
+				}
 			}
 		}
 		
-		for(Tube tube : tubes){
-			tube.update(deltaTime);
+		for(Heart heart : hearts) {
+			heart.update(deltaTime);
 			
-			if(bird.collideWith(tube)){
-				worldListener.crashTube(tube);
-			}
+			if(bird.colliedWith(heart)) {
+				worldListener.catchHeart(heart);
+			} 
 		}
 	}
+	
+	public void generateRandom() {
+		for(int i = 0; i < 3; i++) {
+			addTube(new Tube(SPACE_BETWEEN_TUBES + i * SPACE_BETWEEN_TUBES, Tube.getRandomHeight(), Color.GREEN));
+		}
+		
+		addHeart(new Heart(SPACE_BETWEEN_HEARTS, Heart.getRandomY()));
+		
+	
+	}
+	
 	private void regenerate() {
 		for(Tube tube : tubes) {
 			if(tube.getPositionX() < -100) {
@@ -65,16 +88,13 @@ public class World {
 			}
 		}
 	}
+	
 	public void addTube(Tube tube) {
 		tubes.add(tube);
 	}
 	
 	public void addHeart(Heart heart) {
 		hearts.add(heart);
-	}
-	
-	public Bird getBird() {
-		return bird;
 	}
 	
 	public List<Tube> getTubes() {
@@ -85,14 +105,14 @@ public class World {
 		return hearts;
 	}
 
-	@Override
 	public String toString() {
-		return "Bird: " + bird.getName() 
-		+ " [" + bird.getPositionX() 
-		+ ";" + bird.getPositionY() + "]\n"
-				
-		+ "Tubes: " + tubes.size() + "\n"				
-		+ "Hearts: " + hearts.size();
+		return "Bird: " + bird.getName() + 
+				" PosX: " + bird.getPositionX() + 
+				" PosY: " + bird.getPositionY() + 
+				"\nHearts: " + hearts.size() + " Tubes: " + tubes.size();
 	}
-	
+
+	public Bird getBird() {
+		return bird;
+	}
 }
