@@ -16,6 +16,9 @@ public class World {
 	private List<Heart> hearts;
 	private WorldListener worldListener;
 	
+	private static final int SPACE_BETWEEN_TUBES = 300;
+	private static final int SPACE_BETWEEN_HEARTS = 450;
+	
 	public World(Bird bird, WorldListener worldListner) {
 		this.bird = bird;
 		tubes = new ArrayList<>();
@@ -46,7 +49,22 @@ public class World {
 			}
 		}
 	}
-	
+	private void regenerate() {
+		for(Tube tube : tubes) {
+			if(tube.getPositionX() < -100) {
+				tube.setPositionX(tube.getPositionX() + tubes.size() * SPACE_BETWEEN_TUBES);
+				tube.setHeight(Tube.getRandomHeight());
+				tube.setFlew(false);
+			}
+		}
+		
+		for(Heart heart : hearts) {
+			if(heart.getPositionX() < -100) {
+				heart.setPositionX(heart.getPositionX() + (hearts.size() + 1) * SPACE_BETWEEN_HEARTS);
+				heart.setPositionY(heart.getRandomY());
+			}
+		}
+	}
 	public void addTube(Tube tube) {
 		tubes.add(tube);
 	}

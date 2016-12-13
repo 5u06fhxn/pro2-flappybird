@@ -3,6 +3,7 @@ package cz.uhk.fim.pro2.game.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 import cz.uhk.fim.pro2.game.gui.MainFrame;
 
@@ -11,8 +12,9 @@ public class Tube {
 	private float positionX;
 	private float height;
 	private Color color;
-	
+	private boolean flew;
 	private static final int GAP = 200;
+	private static final int WIDTH = 50;
 	
 	public Tube(float positionX, float height, Color color) {
 		super();
@@ -60,6 +62,21 @@ public class Tube {
 				(int) (height - GAP)
 			);
 	}
+	public static float getRandomHeight() {
+	return (new Random().nextFloat() * 300) + 200;
+	}
+	
+	public int getCenterY() {
+		return (int) (height - (GAP / 2.0));
+	}
+	
+	public int getMinX() {
+		return (int) (positionX - (WIDTH / 2));
+	}
+	
+	public int getMaxX() {
+		return (int) (positionX + (WIDTH / 2));
+	}
 
 	public float getPositionX() {
 		return positionX;
@@ -76,7 +93,13 @@ public class Tube {
 	public Color getColor() {
 		return color;
 	}
-	
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public void setFlew(boolean flew) {
+		this.flew = flew;
+	}
 	public void update(float deltaTime){
 		positionX -= World.SPEED * deltaTime;
 	}
