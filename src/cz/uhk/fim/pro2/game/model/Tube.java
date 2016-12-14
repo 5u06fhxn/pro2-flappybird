@@ -32,7 +32,7 @@ public class Tube {
 		
 		Rectangle topRectangle = getTopRectangle();
 		Rectangle bottomRectangle = getBottomRectangle();
-		ImageIcon image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\flappy.png");
+		ImageIcon image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\tube.png");
 		Image obr = image.getImage();
 	
 
@@ -44,8 +44,8 @@ public class Tube {
 			null
 		);
 		
-		image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\flappy.png");
-		obr = image.getImage();
+		//image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\flappy.png");
+	//	obr = image.getImage();
 		g.drawImage(obr,
 			(int) bottomRectangle.getX(),
 			(int) bottomRectangle.getY(), 

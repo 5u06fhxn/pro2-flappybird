@@ -3,7 +3,10 @@ package cz.uhk.fim.pro2.game.gui;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import cz.uhk.fim.pro2.game.model.Bird;
 import cz.uhk.fim.pro2.game.model.Heart;
@@ -26,8 +29,17 @@ public class GameCanvas extends Canvas {
 	public void paint(Graphics g) {
 		super.paint(g);
 		
-		g.setColor(Color.CYAN);
-		g.fillRect(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
+		//g.setColor(Color.CYAN);
+		//g.fillRect(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
+		
+		ImageIcon image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\bg.png");
+		Image obr = image.getImage();
+	
+		  g.drawImage(obr, 
+				  0,
+					0,
+					null
+				);
 		
 		Bird bird = world.getBird();
 		
