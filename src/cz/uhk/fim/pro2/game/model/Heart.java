@@ -2,6 +2,7 @@ package cz.uhk.fim.pro2.game.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.Random;
 
@@ -15,17 +16,19 @@ public class Heart {
 		this.positionY = positionY;
 	}
 	
-	public void paint(Graphics g){
+	public void paint(Graphics g, Image obrazek){
 		g.setColor(Color.RED);
 		
 		Rectangle rectangle = getRectangle();
 		
-		g.fillRect(
-			(int) rectangle.getX(),
-			(int) rectangle.getY(),
-			(int) rectangle.getWidth(),
-			(int) rectangle.getHeight()
-		);
+		 g.drawImage(obrazek, 
+				  (int) rectangle.getX(), 
+					(int) rectangle.getY(),
+					(int) rectangle.getWidth(),
+					(int) rectangle.getHeight(),
+					null
+				);
+	
 	}
 	
 	public Rectangle getRectangle() {

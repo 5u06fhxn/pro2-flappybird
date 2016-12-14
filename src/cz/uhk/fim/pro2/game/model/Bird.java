@@ -39,15 +39,13 @@ public class Bird {
 		score = DEFAULT_SCORE;
 	}
 	
-	public void paint(Graphics g) {
+	public void paint(Graphics g, Image obrazek ) {
 		g.setColor(Color.BLUE);
 		
 		Rectangle rectangle = getRectangle();
 
-		ImageIcon image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\flappy.png");
-		Image obr = image.getImage();
-	
-		  g.drawImage(obr, 
+		
+		  g.drawImage(obrazek, 
 				  (int) rectangle.getX(), 
 					(int) rectangle.getY(),
 					(int) rectangle.getWidth(),
@@ -55,12 +53,7 @@ public class Bird {
 					null
 				);
 		  
-	//	g.fillRect(
-		//	(int) rectangle.getX(), 
-		//	(int) rectangle.getY(),
-		//	(int) rectangle.getWidth(),
-		//	(int) rectangle.getHeight()
-	//	);
+
 	}
 	
 	public Rectangle getRectangle() {
