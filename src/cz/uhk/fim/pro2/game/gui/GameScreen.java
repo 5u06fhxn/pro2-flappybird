@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.Timer;
 
 import cz.uhk.fim.pro2.game.interfaces.WorldListener;
@@ -19,51 +20,67 @@ import cz.uhk.fim.pro2.game.model.World;
 public class GameScreen extends Screen implements WorldListener {
 	
 	private long lastTimeMillis;
-	
 	private Timer timer;
+	private Bird bird;
+	
+	private JLabel lbLives;
+	private JLabel lbScore;
 
 	public GameScreen(MainFrame mainFrame) {
 		super(mainFrame);
-
-		JButton jButtonBack = new JButton("BACK");
-		JButton jButtonPause = new JButton("PAUSE");
 		
-		jButtonBack.addActionListener(new ActionListener() {			
+		JButton btnBack = new JButton("Back");
+		JButton btnPause = new JButton("Pause");
+		
+		btnBack.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				timer.stop();
 				mainFrame.setScreen(new HomeScreen(mainFrame));
 			}
 		});
 		
-		jButtonPause.addActionListener(new ActionListener() {
+		btnPause.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(timer.isRunning()){
+				if(timer.isRunning()) {
 					timer.stop();
-				}else{
+				} else {
 					lastTimeMillis = System.currentTimeMillis();
 					timer.start();
 				}
 			}
 		});
-
-		jButtonBack.setBounds(20, 20, 60, 60);
-		jButtonPause.setBounds(400, 20, 60, 60);
 		
-		add(jButtonBack);
-		add(jButtonPause);
+		btnBack.setBounds(20, 20, 60, 60);
+		btnBack.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnBack.setForeground(Color.BLUE);
+		btnPause.setBounds(400, 20, 60, 60);
 		
+		add(btnBack);
+		add(btnPause);
 		
-		// WORLD 
-		Bird bird = new Bird("Ales", 240, 400);
+		lbLives = new JLabel("Lives: " + Bird.DEFAULT_LIVES);
+		lbScore = new JLabel("Score: " + Bird.DEFAULT_SCORE);
+		
+		lbLives.setBounds(260, 20, 120, 60);
+		lbScore.setBounds(100, 20, 120, 60);
+		
+		add(lbLives);
+		add(lbScore);
+		
+		bird = new Bird("Martin", 240, 400);
 		World world = new World(bird, this);
-		world.addTube(new Tube(400, 400, Color.GREEN));
+		world.generateRandom();
+		
+		/*world.addTube(new Tube(400, 400, Color.GREEN));
 		world.addTube(new Tube(600, 300, Color.GREEN));
 		world.addTube(new Tube(800, 500, Color.GREEN));
-
-		world.addHeart(new Heart(500, 450));
-		world.addHeart(new Heart(700, 600));
+		
+		world.addHeart(new Heart(500, 300));
+		world.addHeart(new Heart(700, 600));*/
 		
 		GameCanvas gameCanvas = new GameCanvas(world);
 		gameCanvas.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
@@ -79,7 +96,7 @@ public class GameScreen extends Screen implements WorldListener {
 		
 		add(gameCanvas);
 		
-		timer = new Timer(20, new ActionListener() {
+		timer = new Timer(15, new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -87,6 +104,15 @@ public class GameScreen extends Screen implements WorldListener {
 				
 				float delta = (currentTimeMillis - lastTimeMillis) / 1000f;
 				world.update(delta);
+				
+				lbLives.setText("Lives: " + bird.getLives());
+				lbScore.setText("Score: " + bird.getScore());
+				
+				if(!bird.isAlive()) {
+					timer.stop();
+				//	mainFrame.setScreen(new FinishScreen(mainFrame, world));
+				}
+				
 				gameCanvas.repaint();
 				
 				lastTimeMillis = currentTimeMillis;
@@ -99,18 +125,21 @@ public class GameScreen extends Screen implements WorldListener {
 
 	@Override
 	public void crashTube(Tube tube) {
-		System.out.println("Crashed into tube");
+		bird.removeLive();
+		bird.setPositionY(tube.getCenterY());
 	}
 
 	@Override
 	public void catchHeart(Heart heart) {
-		System.out.println("Catched heart");
-		
+		heart.setPositionY(-100);
+		bird.catchHeart();
 	}
 
 	@Override
 	public void outOf() {
-		System.out.println("Bird flew away");
+		bird.setPositionY(MainFrame.HEIGHT / 2);
+		bird.setSpeed(Bird.JUMP / 2);
+		bird.removeLive();
 	}
 
 }

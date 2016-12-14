@@ -10,7 +10,7 @@ import cz.uhk.fim.pro2.game.interfaces.WorldListener;
 
 public class World {
 
-public static final int SPEED = 100;
+	public static final int SPEED = 100;
 	
 	private static final int SPACE_BETWEEN_TUBES = 300;
 	private static final int SPACE_BETWEEN_HEARTS = 450;
@@ -19,7 +19,8 @@ public static final int SPEED = 100;
 	private List<Tube> tubes;
 	private List<Heart> hearts;
 	private WorldListener worldListener;
-
+	private boolean generated;
+	
 	public World(Bird  bird, WorldListener worldListener) {
 		this.bird = bird;
 		tubes = new ArrayList<>();
@@ -28,9 +29,9 @@ public static final int SPEED = 100;
 	}
 	
 	public void update(float deltaTime) {
-	
+		if(generated) {
 			regenerate();
-		
+		}
 		
 		bird.update(deltaTime);
 		
@@ -69,7 +70,7 @@ public static final int SPEED = 100;
 		
 		addHeart(new Heart(SPACE_BETWEEN_HEARTS, Heart.getRandomY()));
 		
-	
+		generated = true;
 	}
 	
 	private void regenerate() {

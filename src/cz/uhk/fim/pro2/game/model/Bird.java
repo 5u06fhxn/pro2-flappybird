@@ -2,7 +2,13 @@ package cz.uhk.fim.pro2.game.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 import cz.uhk.fim.pro2.game.gui.GameCanvas;
 import cz.uhk.fim.pro2.game.gui.MainFrame;
@@ -37,13 +43,24 @@ public class Bird {
 		g.setColor(Color.BLUE);
 		
 		Rectangle rectangle = getRectangle();
-		
-		g.fillRect(
-			(int) rectangle.getX(), 
-			(int) rectangle.getY(),
-			(int) rectangle.getWidth(),
-			(int) rectangle.getHeight()
-		);
+
+		ImageIcon image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\flappy.png");
+		Image obr = image.getImage();
+	
+		  g.drawImage(obr, 
+				  (int) rectangle.getX(), 
+					(int) rectangle.getY(),
+					(int) rectangle.getWidth(),
+					(int) rectangle.getHeight(),
+					null
+				);
+		  
+	//	g.fillRect(
+		//	(int) rectangle.getX(), 
+		//	(int) rectangle.getY(),
+		//	(int) rectangle.getWidth(),
+		//	(int) rectangle.getHeight()
+	//	);
 	}
 	
 	public Rectangle getRectangle() {

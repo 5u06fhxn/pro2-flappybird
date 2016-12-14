@@ -2,8 +2,11 @@ package cz.uhk.fim.pro2.game.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 import cz.uhk.fim.pro2.game.gui.MainFrame;
 
@@ -29,19 +32,26 @@ public class Tube {
 		
 		Rectangle topRectangle = getTopRectangle();
 		Rectangle bottomRectangle = getBottomRectangle();
-		
-		g.fillRect(
+		ImageIcon image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\flappy.png");
+		Image obr = image.getImage();
+	
+
+		g.drawImage(obr,
 			(int) topRectangle.getX(),
 			(int) topRectangle.getY(), 
 			(int) topRectangle.getWidth(),
-			(int) topRectangle.getHeight()
+			(int) topRectangle.getHeight(),
+			null
 		);
 		
-		g.fillRect(
+		image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\flappy.png");
+		obr = image.getImage();
+		g.drawImage(obr,
 			(int) bottomRectangle.getX(),
 			(int) bottomRectangle.getY(), 
 			(int) bottomRectangle.getWidth(),
-			(int) bottomRectangle.getHeight()
+			(int) bottomRectangle.getHeight(),
+			null
 		);
 		
 	}
