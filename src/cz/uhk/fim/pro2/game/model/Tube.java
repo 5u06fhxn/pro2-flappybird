@@ -18,7 +18,9 @@ public class Tube {
 	private boolean flew;
 	private static final int GAP = 200;
 	public static final int WIDTH = 50;
-	
+   private	Rectangle bottomRectangle;
+    private int moveWtihTube =0;
+    private boolean onTop = true;
 	public Tube(float positionX, float height, Color color) {
 		super();
 		this.positionX = positionX;
@@ -31,7 +33,7 @@ public class Tube {
 		g.setColor(Color.GREEN);
 		
 		Rectangle topRectangle = getTopRectangle();
-		Rectangle bottomRectangle = getBottomRectangle();
+	 bottomRectangle = getBottomRectangle();
 
 	
 
@@ -58,7 +60,7 @@ public class Tube {
 	public Rectangle getTopRectangle(){
 		return new Rectangle(
 				(int) (getPositionX()) - 25,
-				(int) height, 
+				(int) height - moveWtihTube, 
 				50,
 				(int) (MainFrame.HEIGHT - height)
 			);
@@ -67,7 +69,7 @@ public class Tube {
 	public Rectangle getBottomRectangle(){
 		return new Rectangle(
 				(int)(getPositionX()) - 25,
-				0, 
+				- moveWtihTube, 
 				50,
 				(int) (height - GAP)
 			);
@@ -112,6 +114,14 @@ public class Tube {
 	}
 	public void update(float deltaTime){
 		positionX -= World.SPEED * deltaTime;
+		
+		if(moveWtihTube>40)
+			onTop = true;
+		if(moveWtihTube<1)
+			onTop = false;
+if(onTop)
+ moveWtihTube-=1;
+else  moveWtihTube+=1;
 	}
 	public boolean isFlew() {
 		return flew;

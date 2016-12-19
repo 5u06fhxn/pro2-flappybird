@@ -59,8 +59,8 @@ public class GameScreen extends Screen implements WorldListener {
 		btnBack.setForeground(Color.BLUE);
 		btnPause.setBounds(400, 20, 60, 60);
 		
-		add(btnBack);
-		add(btnPause);
+	
+
 		
 		lbLives = new JLabel("Lives: " + Bird.DEFAULT_LIVES);
 		lbScore = new JLabel("Score: " + Bird.DEFAULT_SCORE);
@@ -68,8 +68,7 @@ public class GameScreen extends Screen implements WorldListener {
 		lbLives.setBounds(260, 20, 120, 60);
 		lbScore.setBounds(100, 20, 120, 60);
 		
-		add(lbLives);
-		add(lbScore);
+	
 		
 		bird = new Bird("Martin", 240, 400);
 		World world = new World(bird, this);
@@ -83,6 +82,10 @@ public class GameScreen extends Screen implements WorldListener {
 		world.addHeart(new Heart(700, 600));*/
 		
 		GameCanvas gameCanvas = new GameCanvas(world);
+		gameCanvas.add(btnBack);
+		gameCanvas.add(lbScore);
+		gameCanvas.add(lbLives);
+		gameCanvas.add(btnPause);
 		gameCanvas.setBounds(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
 		
 		gameCanvas.addMouseListener(new MouseAdapter() {
@@ -110,7 +113,7 @@ public class GameScreen extends Screen implements WorldListener {
 				
 				if(!bird.isAlive()) {
 					timer.stop();
-				//	mainFrame.setScreen(new FinishScreen(mainFrame, world));
+					mainFrame.setScreen(new FinishScreen(mainFrame, world));
 				}
 				
 				gameCanvas.repaint();

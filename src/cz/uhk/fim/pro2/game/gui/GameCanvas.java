@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import cz.uhk.fim.pro2.game.model.Bird;
@@ -21,7 +22,7 @@ import cz.uhk.fim.pro2.game.model.World;
 public class GameCanvas extends JPanel {
 	
 	
-	public static final int UP_BOUND = 50;
+	public static final int UP_BOUND = 80;
 	public static final int DOWN_BOUND = 70;
 	
 	private World world;
@@ -52,8 +53,7 @@ public class GameCanvas extends JPanel {
 		
 		//ImageIcon image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\bg.png");
 	g.drawImage(imageBackground, 0, 0, null);
-	g.drawImage(imageTop, 0, 0,  MainFrame.WIDTH, UP_BOUND, null);
-	g.drawImage(imageBottom,  MainFrame.HEIGHT- 100, 0, 20 , MainFrame.WIDTH, null);
+	
 		Bird bird = world.getBird();
 		
 		bird.paint(g, imageBird);
@@ -68,7 +68,8 @@ public class GameCanvas extends JPanel {
 			tube.paint(g, imageTube);
 		}
 		
-
+		g.drawImage(imageTop, 0, 0,  MainFrame.WIDTH, UP_BOUND, null);
+		g.drawImage(imageBottom, 0, MainFrame.HEIGHT-100, MainFrame.WIDTH , 100, null);
 		
 	}
 }
