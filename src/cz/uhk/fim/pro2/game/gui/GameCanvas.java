@@ -51,8 +51,7 @@ public class GameCanvas extends JPanel {
 		
 		//g.setColor(Color.CYAN);
 		//g.fillRect(0, 0, MainFrame.WIDTH, MainFrame.HEIGHT);
-		
-		//ImageIcon image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\bg.png");
+
 	g.drawImage(imageBackground, 0, 0, null);
 	
 		Bird bird = world.getBird();
