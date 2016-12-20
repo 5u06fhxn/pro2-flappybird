@@ -63,11 +63,11 @@ public class World {
 		}
 	}
 	
-	public void generateRandom() {
+	public void generateRandom(int firstSpace) {
 		for(int i = 0; i < 3; i++) {
-			addTube(new Tube(SPACE_BETWEEN_TUBES + i * SPACE_BETWEEN_TUBES, Tube.getRandomHeight(), Color.GREEN));
+			addTube(new Tube(SPACE_BETWEEN_TUBES + i * SPACE_BETWEEN_TUBES + firstSpace, Tube.getRandomHeight(), Color.GREEN));
 		}
-		
+		firstSpace = 0;
 		addHeart(new Heart(SPACE_BETWEEN_HEARTS, Heart.getRandomY()));
 		
 		generated = true;

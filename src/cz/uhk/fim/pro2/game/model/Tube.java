@@ -29,7 +29,7 @@ public class Tube {
 		flew = false;
 	}
 	
-	public void paint(Graphics g, Image imageTube){
+	public void paint(Graphics g, Image imageTubeTop,Image imageTubeBottom){
 		g.setColor(Color.GREEN);
 		
 		Rectangle topRectangle = getTopRectangle();
@@ -37,7 +37,7 @@ public class Tube {
 
 	
 
-		g.drawImage(imageTube,
+		g.drawImage(imageTubeBottom,
 			(int) topRectangle.getX(),
 			(int) topRectangle.getY(), 
 			(int) topRectangle.getWidth(),
@@ -47,7 +47,7 @@ public class Tube {
 		
 		//image = new ImageIcon("C:\\Users\\nemecta1\\Downloads\\flappy.png");
 	//	obr = image.getImage();
-		g.drawImage(imageTube,
+		g.drawImage(imageTubeTop,
 			(int) bottomRectangle.getX(),
 			(int) bottomRectangle.getY(), 
 			(int) bottomRectangle.getWidth(),

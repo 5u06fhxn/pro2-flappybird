@@ -26,14 +26,15 @@ public class GameCanvas extends JPanel {
 	public static final int DOWN_BOUND = 70;
 	
 	private World world;
-	private BufferedImage  imageBird,imageHeart, imageTube,imageTop,imageBottom, imageBackground;
+	private BufferedImage  imageBird,imageHeart, imageTubeBottom,imageTop,imageBottom, imageBackground, imageTubeTop;
 	
 	public GameCanvas(World world) {
 		this.world = world;
 		try	 {
 			imageBird = ImageIO.read(new File("Assets/bird.png"));
 			imageHeart = ImageIO.read(new File("Assets/heart.png"));
-			imageTube= ImageIO.read(new File("Assets/tube.png"));
+			imageTubeBottom= ImageIO.read(new File("Assets/tubeBottom.png"));
+			imageTubeTop= ImageIO.read(new File("Assets/tubeTop.png"));
 			imageTop = ImageIO.read(new File("Assets/top.png"));
 			imageBottom = ImageIO.read(new File("Assets/bottom.png"));
 			imageBackground  = ImageIO.read(new File("Assets/background.png"));
@@ -65,7 +66,7 @@ public class GameCanvas extends JPanel {
 		
 		List<Tube> tubes = world.getTubes();
 		for(Tube tube : tubes) {
-			tube.paint(g, imageTube);
+			tube.paint(g, imageTubeTop, imageTubeBottom);
 		}
 		
 		g.drawImage(imageTop, 0, 0,  MainFrame.WIDTH, UP_BOUND, null);
