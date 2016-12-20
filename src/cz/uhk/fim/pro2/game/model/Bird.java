@@ -21,7 +21,7 @@ public class Bird {
 	
 	private static final int GRAVITY = 300;
 	
-	private String name;
+	public static String name;
 	private float positionX, positionY;
 	private float speed;
 	private int lives;

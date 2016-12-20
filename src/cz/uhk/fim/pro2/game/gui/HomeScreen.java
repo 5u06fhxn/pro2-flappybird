@@ -46,7 +46,7 @@ public class HomeScreen extends Screen {
 		
 		jLabelTitle.setFont(new Font("Arial", Font.BOLD, 40));
 		
-		// nastavim velikost a pozici
+
 		jLabelTitle.setBounds(10, 10, 460, 100);
 		jButtonPlay.setBounds(100, 400, 280, 50);
 		jButtonScore.setBounds(100, 460, 280, 50);

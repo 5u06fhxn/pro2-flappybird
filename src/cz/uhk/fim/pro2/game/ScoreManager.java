@@ -10,27 +10,31 @@ import java.util.Date;
 import java.util.List;
 import java.util.List;
 
+
+
 public class ScoreManager {
 	
 	//DEFINICE TRIDY
-	private List<Integer> scoreList;
+	private List<StructureOfScore> scoreList;
 
 	private ScoreManager() {
-		this.scoreList = new ArrayList<>();
+		this.scoreList = new ArrayList<StructureOfScore>();
 	}
 	
-	public void addScore(int score) {
+	public void addScore(int score, String name, String date) {
 		
-		List<Integer> scoreList = getAll();
-		scoreList.add(score);
+		List<StructureOfScore> scoreList = getAll();
+		scoreList.add(new StructureOfScore(score, name, date));
 		
 		try {
 			FileWriter fileWriter = new FileWriter(Game.SCORE_FILE);
 			
-			for(int value : scoreList) {
-				fileWriter.append(String.valueOf(value));
+			for(StructureOfScore value : scoreList) {
+				fileWriter.append(String.valueOf(value.score));
 				fileWriter.append(";");
-				fileWriter.append(new Date().toGMTString());
+				fileWriter.append(value.name);
+				fileWriter.append(";");
+				fileWriter.append(value.date);
 				fileWriter.append("\n");
 			}
 			
@@ -40,12 +44,12 @@ public class ScoreManager {
 			e.printStackTrace();
 			System.out.println("Chyba pri zapisovani");
 		}
-		scoreList.add(score);
+		;
 	}
 	
-	public List<Integer> getAll() {
+	public List<StructureOfScore> getAll() {
 		
-		List<Integer> scoreList = new ArrayList<>();
+		 scoreList =new ArrayList<StructureOfScore>();
 		
 		FileReader fileReader;
 		try {
@@ -55,7 +59,7 @@ public class ScoreManager {
 			String line;
 			while((line = bufferedReader.readLine()) != null) {
 				String[] values = line.split(";");
-				scoreList.add(Integer.valueOf(values[0]));
+				scoreList.add(new StructureOfScore(Integer.valueOf(values[0]) ,values[1], values[2]) );
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,9 +85,9 @@ public class ScoreManager {
 
 	
 	//VEREJNE STATICKE METODY
-	public static void putScore(int score) {
-		getIntstance().addScore(score);		
-	}
+	//public static void putScore(int score) {
+	//	getIntstance().addScore(score);		
+	//}
 	
 	public static List getList() {
 		return getIntstance().getAll();
