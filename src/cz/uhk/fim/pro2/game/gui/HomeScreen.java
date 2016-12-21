@@ -23,7 +23,7 @@ public class HomeScreen extends Screen {
 		
 		JButton jButtonPlay = new JButton("PLAY");
 		JButton jButtonScore = new JButton("SCORE");
-		JButton jButtonSound = new JButton("SOUND");
+	
 		JLabel back = new JLabel();
 	back.setBounds(0,  0, MainFrame.WIDTH, MainFrame.HEIGHT);
 		ImageIcon image = new ImageIcon("Assets/background.png");
@@ -50,14 +50,14 @@ public class HomeScreen extends Screen {
 		jLabelTitle.setBounds(10, 10, 460, 100);
 		jButtonPlay.setBounds(100, 400, 280, 50);
 		jButtonScore.setBounds(100, 460, 280, 50);
-		jButtonSound.setBounds(100, 520, 280, 50);
+		
 	
 		
 	
 		add(jLabelTitle);
 		add(jButtonPlay);
 		add(jButtonScore);
-		add(jButtonSound);
+	
 		add(back);
 	}	
 }

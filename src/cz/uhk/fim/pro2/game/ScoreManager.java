@@ -26,13 +26,19 @@ public class ScoreManager {
 	}
 
 
-	public static ArrayList<StructureOfScore> bubbleSort( List<StructureOfScore> scoreList2)
+	public  ArrayList<StructureOfScore> bubbleSort( List<StructureOfScore> scoreList2)
 	{
-		StructureOfScore[] array = (StructureOfScore[]) scoreList2.toArray();
+		StructureOfScore[] array = new StructureOfScore[scoreList2.size()];
 		
-		for (int i = 0; i < array.length - 1; i++) 
+		
+		for (int i = 0; i < scoreList2.size(); i++) 
+		{	
+	       
+        }
+			 
+		for (int i = 0; i < array.length; i++) 
 		{		
-		for (int j = 0; j < array.length - i - 1; j++) 
+		for (int j = 0; j < array.length - 1; j++) 
 		{
                if(array[j].getScore() < array[j+1].getScore())
                {
@@ -58,7 +64,7 @@ public class ScoreManager {
 		
 		List<StructureOfScore> scoreList = getAll();
 		scoreList.add(score);
-	bubbleSort(scoreList);
+      scoreList =   	bubbleSort(scoreList);
 		try {
 			FileWriter fileWriter = new FileWriter(Game.SCORE_FILE);
 			   BufferedWriter out = new BufferedWriter(fileWriter);
@@ -73,9 +79,10 @@ public class ScoreManager {
 				  out.newLine();
 			
 			}
-			out.close();
 			fileWriter.flush();
+			out.close();
 			fileWriter.close();
+			System.out.println("Complete "+ score.name);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Chyba pri zapisovani");
@@ -95,7 +102,13 @@ public class ScoreManager {
 			String line;
 			while((line = bufferedReader.readLine()) != null) {
 				String[] values = line.split(";");
+			
 				scoreList.add(new StructureOfScore(Integer.valueOf(values[0]) ,values[1], values[2]) );
+				
+				for(StructureOfScore value: scoreList)
+				 {
+					System.out.println(value.score);
+				 }
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.util.Date;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 import cz.uhk.fim.pro2.game.ScoreManager;
@@ -18,12 +20,13 @@ public class FinishScreen extends Screen {
 	private JLabel lbScore, lbPlayerName;
 	private JButton btnStart, btnHome, btnEnterName;
 	private JTextArea textName;
+
 	public FinishScreen(MainFrame mainFrame, World world) {
 		super(mainFrame);
 		
 		int score = world.getBird().getScore();
-		
-		
+      
+	
 		textName = new JTextArea(3,16);
 		lbScore = new JLabel("Skóre: " + score);
 		lbPlayerName = new JLabel("Enter your name");
@@ -71,9 +74,19 @@ public class FinishScreen extends Screen {
 		btnEnterName.setBounds(MainFrame.WIDTH/3, (MainFrame.HEIGHT/3)+ textName.getHeight()+10, textName.getWidth(), textName.getHeight());
 		lbScore.setBounds(Integer.valueOf( MainFrame.WIDTH/3), (int) ((MainFrame.HEIGHT/3)- textName.getHeight()*2.5), textName.getWidth(), textName.getHeight());
 		
-		add(btnEnterName);
+		
+	
+		
+		String input = JOptionPane.showInputDialog("your score is: enter your name");
+	    System.out.println(input);
+	if(input!=null||input!="")
+	{
+		StructureOfScore scoreClass = new StructureOfScore(score, input, new Date().toGMTString());
+		ScoreManager.putScore(scoreClass);
+	}
+
 		add(lbPlayerName);
-		add(textName);
+	
 		add(lbScore);
 		add(btnStart);
 		add(btnHome);
