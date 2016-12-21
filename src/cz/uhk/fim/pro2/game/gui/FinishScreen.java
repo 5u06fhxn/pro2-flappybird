@@ -2,6 +2,7 @@ package cz.uhk.fim.pro2.game.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,7 +28,7 @@ public class FinishScreen extends Screen {
 		lbScore = new JLabel("Skóre: " + score);
 		lbPlayerName = new JLabel("Enter your name");
 		
-		lbScore.setBounds(100, 100, 280, 50);
+		
 		
 		btnStart = new JButton("No, I want play again!");
 		btnHome = new JButton("No, I want go Home");
@@ -38,7 +39,7 @@ public class FinishScreen extends Screen {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StructureOfScore scoreClass = new StructureOfScore(score, textName.getText(), date)
+				StructureOfScore scoreClass = new StructureOfScore(score, textName.getText(), new Date().toGMTString());
 				ScoreManager.putScore(scoreClass);
 			}
 		});
@@ -63,9 +64,12 @@ public class FinishScreen extends Screen {
 		btnHome.setBounds(100, 480, 280, 50);
 	
 		textName.setText(Bird.name);
+		
+		
 		textName.setBounds(MainFrame.WIDTH/3, MainFrame.HEIGHT/3, 150, 50);
 		lbPlayerName.setBounds(MainFrame.WIDTH/3, (MainFrame.HEIGHT/3)- textName.getHeight(), textName.getWidth(), textName.getHeight());
 		btnEnterName.setBounds(MainFrame.WIDTH/3, (MainFrame.HEIGHT/3)+ textName.getHeight()+10, textName.getWidth(), textName.getHeight());
+		lbScore.setBounds(Integer.valueOf( MainFrame.WIDTH/3), (int) ((MainFrame.HEIGHT/3)- textName.getHeight()*2.5), textName.getWidth(), textName.getHeight());
 		
 		add(btnEnterName);
 		add(lbPlayerName);
